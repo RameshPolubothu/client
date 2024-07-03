@@ -23,7 +23,16 @@ const Data = () => {
       })
       .catch((err) => console.log(err));
   };
-
+  function deletitem(id){
+     axios.put(`https://api-backend-qbum.onrender.com/deleteuser/${id}`)
+     .then((result) => {
+      axios
+      .get(`https://api-backend-qbum.onrender.com/getData`)
+      .then((response) => setData(response.data))
+      .catch((err) => console.error(err));
+     })
+     console.error("Error deleting user:", error);
+  }
   return (
     <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
       <div className="w-50 bg-white rounded p-3">
@@ -50,9 +59,12 @@ const Data = () => {
                 <td>
                 <button type="button" onClick={() => UpdateData(row._id)} className="btn btn-success w-100">Update</button>
                 </td>
+                <td>
+                <button type="button" onClick={deletitem(row._id)} className="btn btn-success w-100">Delete</button>
+                </td>
               </tr>
             );
-            })}
+            })} 
           </tbody>
         </table>
       </div>
